@@ -3,9 +3,9 @@
   "info" : {
     "version" : "v1 - Build: 2017-01-26_23:55:05.642",
     "title" : "Analytics Services APIs",
-    "description" : "These endpoints are accesible throught Adobe.IO. Your IMS client key MUST be subscribed to access the Adobe Analytics Reporting APIs for it to work.",
+    "description" : "These are the Adobe Analytics APIs. To call the endpoints requires access to Adobe Analytics. For Questions: Contact Adobe for support.",
     "contact" : {
-      "name" : "Adobe Analytics Services Team",
+      "name" : "Adobe Analytics IO Team",
       "email" : "AdobeAnalyticsWeb-AppTeam@adobe.com",
       "url":"https://git.corp.adobe.com/pages/AdobeAnalyticsWeb/analytics_services_devportal/"
     }
