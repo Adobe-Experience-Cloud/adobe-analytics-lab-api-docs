@@ -5,9 +5,7 @@
     "title" : "Analytics Services APIs",
     "description" : "These are the Adobe Analytics APIs. To call the endpoints requires access to Adobe Analytics. For Questions: Contact Adobe for support.",
     "contact" : {
-      "name" : "Adobe Analytics IO Team",
-      "email" : "AdobeAnalyticsWeb-AppTeam@adobe.com",
-      "url":"https://git.corp.adobe.com/pages/AdobeAnalyticsWeb/analytics_services_devportal/"
+      "name" : "Adobe Analytics IO Team"
     }
   },
   "host" : "mc.adobe.io",
