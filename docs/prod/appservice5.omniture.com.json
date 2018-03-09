@@ -293,6 +293,53 @@
         }
       }
     },
+    "/collections/suites" : {
+      "get" : {
+        "tags" : [ "collections" ],
+        "summary" : "Retrieves report suites that match the given filters.",
+        "description" : "",
+        "operationId" : "findAll",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "rsids",
+          "in" : "query",
+          "description" : "Filter list to only include suites in this RSID list (comma-delimited)",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "rsidContains",
+          "in" : "query",
+          "description" : "Filter list to only include suites whose rsid contains rsidContains.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Number of results per page",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number (base 0 - first page is \"0\")",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SuiteCollectionItem"
+            }
+          },
+          "500" : {
+            "description" : "Unexpected error; report suite retrieval failed"
+          }
+        }
+      }
+    },
     "/dimensions" : {
       "get" : {
         "tags" : [ "dimensions" ],
@@ -1456,6 +1503,22 @@
         }
       }
     },
+    "CalendarType" : {
+      "type" : "object",
+      "properties" : {
+        "rsid" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string",
+          "enum" : [ "gregorian", "nrf", "qrs", "custom_454", "custom_445", "modified_gregorian" ]
+        },
+        "anchorDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
+    },
     "Column" : {
       "type" : "object",
       "properties" : {
@@ -2253,6 +2316,61 @@
     },
     "Sort" : {
       "type" : "object"
+    },
+    "SuiteCollectionItem" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "calendarType" : {
+          "$ref" : "#/definitions/CalendarType"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "collectionItemType" : {
+          "type" : "string",
+          "description" : "Suite type",
+          "enum" : [ "reportsuite", "virtualreportsuite" ]
+        },
+        "currentTimezoneOffset" : {
+          "type" : "number",
+          "format" : "float"
+        },
+        "enabledSolutions" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "dataCurrentAsOf" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "timezoneZoneinfo" : {
+          "type" : "string",
+          "description" : "Suite friendly timezone name"
+        },
+        "parentRsid" : {
+          "type" : "string",
+          "description" : "Parent report suite id for virtual report suite"
+        },
+        "isBlocked" : {
+          "type" : "boolean"
+        },
+        "numGroups" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "isDeleted" : {
+          "type" : "boolean"
+        },
+        "rsid" : {
+          "type" : "string",
+          "readOnly" : true
+        }
+      }
     },
     "SummarizedUsageItem" : {
       "type" : "object",
