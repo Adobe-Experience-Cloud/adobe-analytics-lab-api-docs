@@ -269,7 +269,7 @@
 		if (Cookies.get('input_companyName')) {
 			$('#input_companyName').val(Cookies.get('input_companyName'));
 		} else if ($.getUrlVar('input_companyName')) {
-			$('#input_companyName').val($.getUrlVar('analytics_company'));
+			$('#input_companyName').val($.getUrlVar('input_companyName'));
 		}
 
 		if (Cookies.get('input_clientKey')) {
