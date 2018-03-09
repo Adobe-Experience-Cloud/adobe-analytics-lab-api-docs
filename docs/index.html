@@ -14,6 +14,7 @@
 	<script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
 	<script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
 	<script src='lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+	<script src='lib/js.cookie.min.js' type='text/javascript'></script>
 	<script src='lib/handlebars-2.0.0.js' type='text/javascript'></script>
 	<script src='lib/underscore-min.js' type='text/javascript'></script>
 	<script src='lib/backbone-min.js' type='text/javascript'></script>
@@ -100,7 +101,6 @@
 .swagger-section #message-bar {
 	min-height: 0px;
 	text-align: center;
-	padding-top: 170px;
 }
 
 .swagger-section #explore {
@@ -167,14 +167,19 @@
 
 						// Turns on the debug level logging in the appmicroservice
 						//swaggerUi.api.clientAuthorizations.add("xdebugFlag", new SwaggerClient.ApiKeyAuthorization("x-request-debug", "lab-debug-enabled", "header"));
-            swaggerUi.api.clientAuthorizations.add("xproxyUser", new SwaggerClient.ApiKeyAuthorization("x-proxy-username", "lab-user", "header"));
+						swaggerUi.api.clientAuthorizations.add("xproxyUser", new SwaggerClient.ApiKeyAuthorization("x-proxy-username", "lab-user", "header"));
 
+						setTimeout(function(){
+							loadQSParams();
+							goToHash();
+						}, 1000);
 					},
 					onFailure : function(data) {
 						log("Unable to Load SwaggerUI");
 					},
-					docExpansion : "list",
+					docExpansion : "none",
 					apisSorter : "alpha",
+					deepLinking: true,
 					showRequestHeaders : false,
 					validatorUrl:null
 				});
@@ -188,6 +193,8 @@
 						"api_key", accessTokenAuth);
 				log("added key " + key);
 			}
+
+			Cookies.set("input_accessToken", key, { expires : 1 });
 		}
 
 		function addCompanyName() {
@@ -199,6 +206,8 @@
 						"xproxyCompany", companyNameHeader);
 				log("added x-proxy-company " + companyName);
 			}
+
+			Cookies.set("input_companyName", companyName, { expires : 30 });
 		}
 
 		function addClientKey() {
@@ -215,6 +224,50 @@
 		function changeEnvironment() {
 			window.swaggerUi.setOption('url', "prod/" + $('#input_environment')[0].value + ".json");
 			window.swaggerUi.load();
+		}
+
+		function loadQSParams() {
+			if(!window.location.hash) {
+				return;
+			}
+			var element = getSwaggerElementByHash();
+			if (element) {
+				element.find('input, select, textarea').each(function(index) {
+					var input = $(this);
+					var name = input.attr('name');
+
+					if (name) {
+						var qs_param = $.getUrlVar(name);
+						if (qs_param) {
+							input.val(JSON.stringify(JSON.parse(qs_param),null,2));
+						}
+					}
+				});
+			}
+		}
+
+		function goToHash() {
+			if(!window.location.hash) {
+				return;
+			}
+			var element = getSwaggerElementByHash();
+			if (element) {
+				$('html, body').animate({
+					scrollTop: element.offset().top
+				}, 200);
+			}
+		}
+
+		if (Cookies.get('input_accessToken')) {
+			$('#input_accessToken').val(Cookies.get('input_accessToken'));
+		} else {
+			$('#input_accessToken').focus();
+		}
+
+		if (Cookies.get('input_companyName')) {
+			$('#input_companyName').val(Cookies.get('input_companyName'));
+		} else if ($.getUrlVar('analytics_company')) {
+			$('#input_companyName').val($.getUrlVar('analytics_company'));
 		}
 
 		$('#input_accessToken').change(addAccessToken);
@@ -236,6 +289,37 @@
 			}
 		}
 	});
+
+	function getSwaggerElementByHash() {
+		var element;
+		if (window.location.hash.match(/^\#\!\/([^\/]+)$/)) {
+			element = $(window.location.hash.replace(/^\#\!\/([^\/]+)$/, "#resource_$1"));
+		} else if (window.location.hash.match(/^\#\!\/([^\/]+)\/(.*)$/)) {
+			element = $(window.location.hash.replace(/^\#\!\/([^\/]+)\/(.*)$/, "#$1_$2"));
+		} else {
+			element = false;
+		}
+
+		return element;
+	}
+
+	$.extend({
+		getUrlVars: function(){
+			var vars = [], hash;
+			var href = window.location.href.replace(/(.*)\#[^\#]+$/, "$1");
+			var hashes = href.slice(href.indexOf('?') + 1).split('&');
+			for(var i = 0; i < hashes.length; i++)
+			{
+				hash = hashes[i].split('=');
+				vars.push(hash[0]);
+				vars[hash[0]] = decodeURIComponent(hash[1]);
+			}
+			return vars;
+		},
+		getUrlVar: function(name){
+			return $.getUrlVars()[name];
+		}
+	});
 		</script>
 </head>
 
@@ -246,33 +330,38 @@
   </div>
 </div>
 <div id="controls-wrap">
-	<div id="controls">
-		<form id='api_selector'>
-			<div class='input'>
-				<div class="block">
-					<label>Access Token:</label> <input placeholder="ims access token" id="input_accessToken" name="accessToken" type="text" value=""/><br/>
-				<div class="block">
-					<label>Analytics Company:</label> <input placeholder="company name" id="input_companyName" name="companyName" type="text" value=""/><br/>
+	<div id="controls-ui-container">
+		<div id="controls">
+			<form id='api_selector'>
+				<div class='input'>
+					<div class="block">
+						<label>Access Token:</label> <input placeholder="ims access token" id="input_accessToken" name="accessToken" type="text" value=""/><br/>
+					</div>
+					<div class="block">
+						<label>Analytics Company:</label> <input placeholder="company name" id="input_companyName" name="companyName" type="text" value=""/><br/>
+					</div>
+					<div id="advanced-controls">
+						<div class="block">
+							<label>Client Key:</label> <input placeholder="client api key" id="input_clientKey" name="clientKey" type="text" value=""/>
+						</div>
+						<div class="block">
+							<label>Environment:</label>
+							<select id="input_environment">
+								<option value="mc.adobe.io">mc.adobe.io</option>
+								<option value="appservice.omniture.com" selected>appservice.omniture.com</option>
+								<option value="appservice2.omniture.com">appservice2.omniture.com</option>
+								<option value="appservice3.omniture.com">appservice3.omniture.com</option>
+								<option value="appservice4.omniture.com">appservice4.omniture.com</option>
+								<option value="appservice5.omniture.com">appservice5.omniture.com</option>
+							</select>
+						</div>
+					</div>
 				</div>
-				<div class="block">
-					<label>Client Key:</label> <input placeholder="client api key" id="input_clientKey" name="clientKey" type="text" value=""/>
-				</div>
-				<div class="block">
-					<label>Environment:</label>
-					<select id="input_environment">
-						<option value="mc.adobe.io">mc.adobe.io</option>
-						<option value="appservice.omniture.com" selected>appservice.omniture.com</option>
-						<option value="appservice2.omniture.com">appservice2.omniture.com</option>
-						<option value="appservice3.omniture.com">appservice3.omniture.com</option>
-						<option value="appservice4.omniture.com">appservice4.omniture.com</option>
-						<option value="appservice5.omniture.com">appservice5.omniture.com</option>
-					</select>
-				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </div>
 <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
-<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+<div id="swagger-ui-container" class="swagger-ui-wrap">&nbsp;</div>
 </body>
 </html>
