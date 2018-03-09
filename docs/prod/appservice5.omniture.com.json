@@ -45,42 +45,6 @@
         "operationId" : "findCalculatedMetrics",
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Comma-delimited list of additional calculated metric metadata fields to include on response.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "reportSuiteName", "siteTitle", "ownerFullName", "modified", "migratedIds", "isDeleted", "approved", "favorite", "shares", "tags", "sharesFullName", "usageSummary", "usageSummaryWithRelevancyScore", "definition", "authorization", "compatibility", "legacyId", "internal", "dataGroup", "reportTimeAttribution" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
-          "name" : "rsids",
-          "in" : "query",
-          "description" : "Filter list to only include calculated metrics tied to specified RSID list (comma-delimited)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "ownerId",
-          "in" : "query",
-          "description" : "Filter list to only include calculated metrics owned by the specified loginId",
-          "required" : false,
-          "type" : "integer",
-          "format" : "int32"
-        }, {
-          "name" : "calculatedMetricFilter",
-          "in" : "query",
-          "description" : "Filter list to only include calculated metrics in the specified list (comma-delimited list of IDs)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "filterByIds",
-          "in" : "query",
-          "description" : "Filter list to only include calculated metrics in the specified list (comma-delimited list of IDs) (this is the same as calculatedMetricFilter, and is overwritten by calculatedMetricFilter",
-          "required" : false,
-          "type" : "string"
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale",
@@ -91,38 +55,6 @@
           "name" : "name",
           "in" : "query",
           "description" : "Filter list to only include calculated metrics that contains the Name",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "tagNames",
-          "in" : "query",
-          "description" : "Filter list to only include calculated metrics that contains one of the tags",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "favorite",
-          "in" : "query",
-          "description" : "Filter list to only include calculated metrics that are favorites",
-          "required" : false,
-          "type" : "boolean"
-        }, {
-          "name" : "approved",
-          "in" : "query",
-          "description" : "Filter list to only include calculated metrics that are approved",
-          "required" : false,
-          "type" : "boolean"
-        }, {
-          "name" : "pagination",
-          "in" : "query",
-          "description" : "return paginated results",
-          "required" : false,
-          "type" : "string",
-          "default" : "false",
-          "enum" : [ "true", "false" ]
-        }, {
-          "name" : "filterByModifiedAfter",
-          "in" : "query",
-          "description" : "Filter list to only include calculated metrics modified since this date (ISO8601 format)",
           "required" : false,
           "type" : "string"
         }, {
@@ -184,17 +116,6 @@
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Comma-delimited list of additional calculated metric metadata fields to include on response.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "reportSuiteName", "siteTitle", "ownerFullName", "modified", "migratedIds", "isDeleted", "approved", "favorite", "shares", "tags", "sharesFullName", "usageSummary", "usageSummaryWithRelevancyScore", "definition", "authorization", "compatibility", "legacyId", "internal", "dataGroup", "reportTimeAttribution" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
           "in" : "body",
           "name" : "body",
           "description" : "JSON-formatted Object containing key/value pairs for calculated metric creation.",
@@ -246,17 +167,6 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Comma-delimited list of additional calculated metric metadata fields to include on response.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "reportSuiteName", "siteTitle", "ownerFullName", "modified", "migratedIds", "isDeleted", "approved", "favorite", "shares", "tags", "sharesFullName", "usageSummary", "usageSummaryWithRelevancyScore", "definition", "authorization", "compatibility", "legacyId", "internal", "dataGroup", "reportTimeAttribution" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale",
@@ -293,17 +203,6 @@
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Comma-delimited list of additional calculated metric metadata fields to include on response.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "reportSuiteName", "siteTitle", "ownerFullName", "modified", "migratedIds", "isDeleted", "approved", "favorite", "shares", "tags", "sharesFullName", "usageSummary", "usageSummaryWithRelevancyScore", "definition", "authorization", "compatibility", "legacyId", "internal", "dataGroup", "reportTimeAttribution" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "Calculated Metric ID to be updated",
@@ -414,90 +313,6 @@
           "required" : false,
           "type" : "string",
           "default" : "en_US"
-        }, {
-          "name" : "support",
-          "in" : "query",
-          "description" : "Comma-delimited list of products to filter the dimension list by. Possible values are 'oberon' and 'dataWarehouse'.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "oberon", "dataWarehouse" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
-          "name" : "segmentable",
-          "in" : "query",
-          "description" : "Only include dimensions that are valid within a segment.",
-          "required" : false,
-          "type" : "boolean",
-          "enum" : [ "true" ]
-        }, {
-          "name" : "supportsDataGovernance",
-          "in" : "query",
-          "description" : "Only include dimensions that contain dataGovernance attribute.",
-          "required" : false,
-          "type" : "boolean",
-          "enum" : [ "true" ]
-        }, {
-          "name" : "reportable",
-          "in" : "query",
-          "description" : "Only include dimensions that are valid within a report.",
-          "required" : false,
-          "type" : "boolean",
-          "enum" : [ "true" ]
-        }, {
-          "name" : "classifiable",
-          "in" : "query",
-          "description" : "Only include classifiable dimensions.",
-          "required" : false,
-          "type" : "boolean",
-          "enum" : [ "true" ]
-        }, {
-          "name" : "reportTimeAttribution",
-          "in" : "query",
-          "description" : "Only include dimensions that support reportTimeAttribution.",
-          "required" : false,
-          "type" : "boolean",
-          "enum" : [ "true" ]
-        }, {
-          "name" : "useCache",
-          "in" : "query",
-          "description" : "Enable caching for faster requests.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : true
-        }, {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Add extra metadata to items (comma-delimited list)",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "tags", "approved", "favorite", "usageSummary", "usageSummaryWithRelevancyScore", "hidden", "noAccess", "warning", "curatedItems", "isEntryOrExit", "reportTimeAttribution", "customerJourney", "dataGovernance", "aliasId", "dataCollectionType", "attributionModel" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
-          "name" : "dataGovernanceLabels",
-          "in" : "query",
-          "description" : "Filter the response based on data governance labels. Search for multiple lables using a comma-delimited string format. Any metric/dimension containing one or more of the provided labels will be returned.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          },
-          "collectionFormat" : "multi"
-        }, {
-          "name" : "dataGovernanceNamespaces",
-          "in" : "query",
-          "description" : "Filter the response based on data governance namespaces. Search for multiple namespaces using a comma-delimited string format. Any dimension containing one or more of the provided namespaces will be returned.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          },
-          "collectionFormat" : "multi"
         } ],
         "responses" : {
           "200" : {
@@ -547,17 +362,6 @@
           "required" : false,
           "type" : "string",
           "default" : "en_US"
-        }, {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Add extra metadata to items (comma-delimited list)",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "tags", "approved", "favorite", "usageSummary", "usageSummaryWithRelevancyScore", "hidden", "noAccess", "warning", "curatedItems", "isEntryOrExit", "reportTimeAttribution", "customerJourney", "dataGovernance", "aliasId", "dataCollectionType", "attributionModel" ]
-          },
-          "collectionFormat" : "multi"
         } ],
         "responses" : {
           "200" : {
@@ -767,24 +571,6 @@
           "required" : false,
           "type" : "string",
           "default" : "en_US"
-        }, {
-          "name" : "segmentable",
-          "in" : "query",
-          "description" : "Filter the metrics by if they are valid in a segment.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Add extra metadata to items (comma-delimited list)",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "tags", "approved", "favorite", "usageSummary", "usageSummaryWithRelevancyScore", "hidden", "noAccess", "warning", "curatedItems", "isEntryOrExit", "reportTimeAttribution", "customerJourney", "dataGovernance", "aliasId", "dataCollectionType" ]
-          },
-          "collectionFormat" : "multi"
         } ],
         "responses" : {
           "200" : {
@@ -831,24 +617,6 @@
           "required" : false,
           "type" : "string",
           "default" : "en_US"
-        }, {
-          "name" : "includeHidden",
-          "in" : "query",
-          "description" : "Whether to include variables that are hidden in the UI or that the user doesn't have permission to.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Add extra metadata to items (comma-delimited list)",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "tags", "approved", "favorite", "usageSummary", "usageSummaryWithRelevancyScore", "hidden", "noAccess", "warning", "curatedItems", "isEntryOrExit", "reportTimeAttribution", "customerJourney", "dataGovernance", "aliasId", "dataCollectionType" ]
-          },
-          "collectionFormat" : "multi"
         } ],
         "responses" : {
           "200" : {
@@ -878,37 +646,6 @@
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "allowRemoteLoad",
-          "in" : "query",
-          "description" : "Controls if Oberon should remote load data.  Default behavior is true with fallback to false if remote data does not exist",
-          "required" : false,
-          "type" : "string",
-          "default" : "default",
-          "enum" : [ "true", "false", "default" ]
-        }, {
-          "name" : "useCache",
-          "in" : "query",
-          "description" : "Use caching for faster requests (Use cached dimensions to speed up permission checks - This does not do any report caching)",
-          "required" : false,
-          "type" : "boolean",
-          "default" : true
-        }, {
-          "name" : "includeOberonXml",
-          "in" : "query",
-          "description" : "Controls if Oberon XML should be returned in the response - DEBUG ONLY",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false,
-          "enum" : [ "true", "false" ]
-        }, {
-          "name" : "includePlatformPredictiveObjects",
-          "in" : "query",
-          "description" : "Controls if platform Predictive Objects should be returned in the response. Only available when using Anomaly Detection or Forecasting- DEBUG ONLY",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false,
-          "enum" : [ "true", "false" ]
-        }, {
           "in" : "body",
           "name" : "body",
           "required" : false,
@@ -940,79 +677,11 @@
         "operationId" : "findAll",
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Comma-delimited list of additional segment metadata fields to include on response.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "reportSuiteName", "siteTitle", "ownerFullName", "modified", "migratedIds", "isDeleted", "approved", "favorite", "shares", "tags", "sharesFullName", "usageSummary", "usageSummaryWithRelevancyScore", "legacyId", "compatibility", "definition", "internal", "dataGroup", "reportTimeAttribution", "customerJourney" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
-          "name" : "includeType",
-          "in" : "query",
-          "description" : "Include additional segments not owned by user. The \"all\" option takes precedence over \"shared\"",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "shared", "all", "templates", "deleted", "internal", "curatedItem" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
-          "name" : "rsids",
-          "in" : "query",
-          "description" : "Filter list to only include segments tied to specified RSID list (comma-delimited)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "dataType",
-          "in" : "query",
-          "description" : "Filter list to only include segments compatible with the specified product",
-          "required" : false,
-          "type" : "string",
-          "enum" : [ "dw", "oberon" ]
-        }, {
-          "name" : "ownerId",
-          "in" : "query",
-          "description" : "Filter list to only include segments owned by the specified loginId",
-          "required" : false,
-          "type" : "integer",
-          "format" : "int32"
-        }, {
-          "name" : "segmentFilter",
-          "in" : "query",
-          "description" : "Filter list to only include segments in the specified list (comma-delimited list of IDs)",
-          "required" : false,
-          "type" : "string"
-        }, {
           "name" : "filterByIds",
           "in" : "query",
           "description" : "Filter list to only include segments in the specified list (comma-delimited list of IDs) (this is the same as segmentFilter, and is overwritten by segmentFilter",
           "required" : false,
           "type" : "string"
-        }, {
-          "name" : "toBeUsedInRsid",
-          "in" : "query",
-          "description" : "Required when reportTimeAttribution != null or expansion=reportTimeAttribution",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "includeDeleted",
-          "in" : "query",
-          "description" : "DEPRECATED use deleted includeType - Include disabled/deleted segments in the response. Note: also forces the 'isDeleted' expansion",
-          "required" : false,
-          "type" : "string",
-          "default" : "false",
-          "enum" : [ "true", "false" ]
-        }, {
-          "name" : "reportTimeAttribution",
-          "in" : "query",
-          "description" : "Filter list to only include segments by reportTimeAttribution",
-          "required" : false,
-          "type" : "boolean"
         }, {
           "name" : "locale",
           "in" : "query",
@@ -1030,40 +699,6 @@
           "name" : "tagNames",
           "in" : "query",
           "description" : "Filter list to only include segments that contains one of the tags",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "filterByModifiedAfter",
-          "in" : "query",
-          "description" : "Filter list to only include segments modified since this date (ISO8601 format)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "pagination",
-          "in" : "query",
-          "description" : "return paginated results",
-          "required" : false,
-          "type" : "string",
-          "default" : "false",
-          "enum" : [ "true", "false" ]
-        }, {
-          "name" : "dataGroup",
-          "in" : "query",
-          "description" : "Filter list to only include segments with the given data group",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "Decides the version of segment service",
-          "required" : false,
-          "type" : "string",
-          "default" : "old",
-          "enum" : [ "old", "new" ]
-        }, {
-          "name" : "curatedRsid",
-          "in" : "query",
-          "description" : "Include the curatedItem status for given Rsid",
           "required" : false,
           "type" : "string"
         }, {
@@ -1110,17 +745,6 @@
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Comma-delimited list of additional segment metadata fields to include on response.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "reportSuiteName", "siteTitle", "ownerFullName", "modified", "migratedIds", "isDeleted", "approved", "favorite", "shares", "tags", "sharesFullName", "usageSummary", "usageSummaryWithRelevancyScore", "dwInUse", "asiInUse", "aamStatus", "legacyId", "compatibility", "definition", "internal", "dataGroup", "reportTimeAttribution", "customerJourney", "virtualReportSuites" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
           "in" : "body",
           "name" : "body",
           "description" : "JSON-formatted Object containing key/value pairs for segment creation.",
@@ -1168,31 +792,6 @@
           "description" : "The segment ID to retrieve",
           "required" : true,
           "type" : "string"
-        }, {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Comma-delimited list of additional segment metadata fields to include on response.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "reportSuiteName", "siteTitle", "ownerFullName", "modified", "migratedIds", "isDeleted", "approved", "favorite", "shares", "tags", "sharesFullName", "usageSummary", "usageSummaryWithRelevancyScore", "dwInUse", "asiInUse", "aamStatus", "legacyId", "compatibility", "definition", "internal", "dataGroup", "reportTimeAttribution", "customerJourney", "virtualReportSuites" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "Decides the version of segment service",
-          "required" : false,
-          "type" : "string",
-          "default" : "old",
-          "enum" : [ "old", "new" ]
-        }, {
-          "name" : "toBeUsedInRsid",
-          "in" : "query",
-          "description" : "Evaluate the reportTimeAttribution/customerJourney compatibility for the passed report suite",
-          "required" : false,
-          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1217,17 +816,6 @@
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "expansion",
-          "in" : "query",
-          "description" : "Comma-delimited list of additional segment metadata fields to include on response.",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "reportSuiteName", "siteTitle", "ownerFullName", "modified", "migratedIds", "isDeleted", "approved", "favorite", "shares", "tags", "sharesFullName", "usageSummary", "usageSummaryWithRelevancyScore", "dwInUse", "asiInUse", "aamStatus", "legacyId", "compatibility", "definition", "internal", "dataGroup", "reportTimeAttribution", "customerJourney", "virtualReportSuites" ]
-          },
-          "collectionFormat" : "multi"
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "Segment ID to be updated",
@@ -1491,24 +1079,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "expansion",
-            "in": "query",
-            "description": "Comma-delimited list of additional analytics user metadata fields to include on response.",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": [
-                "admin",
-                "imsOrgId",
-                "marketingCloudOnly",
-                "imsUserMigration",
-                "tenantId"
-              ]
-            },
-            "collectionFormat": "csv"
-          }
         ],
         "responses": {
           "200": {
