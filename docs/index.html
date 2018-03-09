@@ -219,6 +219,8 @@
 				"xapiKey", clientKeyHeader);
 				log("added x-api-key " + clientKey);
 			}
+
+			Cookies.set("input_clientKey", clientKey, { expires : 30 });
 		}
 
 		function changeEnvironment() {
@@ -266,8 +268,14 @@
 
 		if (Cookies.get('input_companyName')) {
 			$('#input_companyName').val(Cookies.get('input_companyName'));
-		} else if ($.getUrlVar('analytics_company')) {
+		} else if ($.getUrlVar('input_companyName')) {
 			$('#input_companyName').val($.getUrlVar('analytics_company'));
+		}
+
+		if (Cookies.get('input_clientKey')) {
+			$('#input_clientKey').val(Cookies.get('input_clientKey'));
+		} else if ($.getUrlVar('input_clientKey')) {
+			$('#input_clientKey').val($.getUrlVar('input_clientKey'));
 		}
 
 		$('#input_accessToken').change(addAccessToken);
