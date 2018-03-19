@@ -45,7 +45,8 @@
 .swagger-section #controls-wrap {
 	left: 0px;
 	right: 0px;
-	height:150px;
+	height: auto;
+	min-height: 115px;
  	background-color: #1C0A2B;
 }
 
@@ -63,6 +64,10 @@
 	clear: none;
 	margin-top: 5px;
 	float: left;
+}
+
+.swagger-section #api_selector select {
+	margin-top: 6px;
 }
 
 .swagger-section #api_selector input {
@@ -118,6 +123,26 @@
 	-ms-border-radius: 4px;
 	-khtml-border-radius: 4px;
 	border-radius: 4px;
+}
+
+.swagger-section #reports_runRankedReport_content textarea {
+	width: 430px;
+	height: 360px;
+}
+
+.swagger-section #advanced-controls-slider label {
+	display: inline-block;
+	width: 160px;
+	text-align: right;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.swagger-section #advanced-controls-slider button {
+	font-size: 0.5em;
+	margin-left: 3px;
+	margin-top: 3px;
+	width: 150px;
 }
 
 </style>
@@ -283,6 +308,19 @@
 		$('#input_clientKey').change(addClientKey);
 		$('#input_environment').change(changeEnvironment);
 
+		// toggles show/hide of advanced controls
+		$('#input_advancedControls').click(function(){
+			if ($("#advanced-controls").is(':visible')) {
+				$("#controls-wrap").animate({height: 115}, 200);
+				$("#advanced-controls").hide();
+				$(this).text("Show Advanced Controls");
+			} else {
+				$("#advanced-controls").fadeIn();
+				$("#controls-wrap").animate({height: 183}, 200);
+				$(this).text("Hide Advanced Controls");
+			}
+		});
+
 		// if you have an accessToken you would like to pre-populate on the page for demonstration purposes...
 		/*
 		  var accessToken = "myaccessTokenXXXX123456789";
@@ -348,7 +386,7 @@
 					<div class="block">
 						<label>Analytics Company:</label> <input placeholder="company name" id="input_companyName" name="companyName" type="text" value=""/><br/>
 					</div>
-					<div id="advanced-controls">
+					<div id="advanced-controls" style="display: none;">
 						<div class="block">
 							<label>Client Key:</label> <input placeholder="client api key" id="input_clientKey" name="clientKey" type="text" value=""/>
 						</div>
@@ -364,6 +402,7 @@
 							</select>
 						</div>
 					</div>
+					<div id="advanced-controls-slider"><label>&nbsp;</label><button id="input_advancedControls">Show Advanced Controls</button></div>
 				</div>
 			</form>
 		</div>
