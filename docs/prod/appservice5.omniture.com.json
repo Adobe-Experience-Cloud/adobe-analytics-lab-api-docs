@@ -724,11 +724,52 @@
         "operationId" : "findAll",
         "produces" : [ "application/json" ],
         "parameters" : [ {
+            "name": "expansion",
+            "in": "query",
+            "description": "Comma-delimited list of additional segment metadata fields to include on response.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "reportSuiteName",
+                "siteTitle",
+                "ownerFullName",
+                "modified",
+                "isDeleted",
+                "approved",
+                "favorite",
+                "shares",
+                "tags",
+                "sharesFullName",
+                "usageSummary",
+                "usageSummaryWithRelevancyScore",
+                "compatibility",
+                "definition"
+              ]
+            },
+            "collectionFormat": "csv"
+        }, {
           "name" : "filterByIds",
           "in" : "query",
           "description" : "Filter list to only include segments in the specified list (comma-delimited list of IDs) (this is the same as segmentFilter, and is overwritten by segmentFilter",
           "required" : false,
           "type" : "string"
+        }, {
+            "name": "includeType",
+            "in": "query",
+            "description": "Include additional segments not owned by user. The \"all\" option takes precedence over \"shared\"",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "all",
+                "deleted"
+              ]
+            },
+            "collectionFormat": "csv"
         }, {
           "name" : "locale",
           "in" : "query",
