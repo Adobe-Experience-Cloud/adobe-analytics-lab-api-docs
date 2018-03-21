@@ -880,6 +880,32 @@
           "description" : "The segment ID to retrieve",
           "required" : true,
           "type" : "string"
+        }, {
+            "name": "expansion",
+            "in": "query",
+            "description": "Comma-delimited list of additional segment metadata fields to include on response.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "reportSuiteName",
+                "siteTitle",
+                "ownerFullName",
+                "modified",
+                "isDeleted",
+                "approved",
+                "favorite",
+                "shares",
+                "tags",
+                "sharesFullName",
+                "usageSummary",
+                "usageSummaryWithRelevancyScore",
+                "compatibility",
+                "definition"
+              ]
+            },
+            "collectionFormat": "csv"
         } ],
         "responses" : {
           "200" : {
