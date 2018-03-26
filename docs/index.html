@@ -130,6 +130,11 @@
 	height: 360px;
 }
 
+.swagger-section #segments_createSegment_content textarea {
+	width: 430px;
+	height: 360px;
+}
+
 .swagger-section #advanced-controls-slider label {
 	display: inline-block;
 	width: 160px;
@@ -143,6 +148,14 @@
 	margin-left: 3px;
 	margin-top: 3px;
 	width: 150px;
+}
+
+.swagger-section .curl {
+	display: none
+}
+
+.swagger-section .request_url {
+	display: none
 }
 
 </style>
@@ -306,7 +319,6 @@
 		$('#input_accessToken').change(addAccessToken);
 		$('#input_companyName').change(addCompanyName);
 		$('#input_clientKey').change(addClientKey);
-		$('#input_environment').change(changeEnvironment);
 
 		// toggles show/hide of advanced controls
 		$('#input_advancedControls').click(function(){
@@ -315,6 +327,7 @@
 				$("#advanced-controls").hide();
 				$(this).text("Show Advanced Controls");
 			} else {
+				$('#input_environment').change(changeEnvironment);
 				$("#advanced-controls").fadeIn();
 				$("#controls-wrap").animate({height: 183}, 200);
 				$(this).text("Hide Advanced Controls");
